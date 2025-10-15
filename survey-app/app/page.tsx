@@ -9,7 +9,7 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
-  const handleLoginSuccess = (email: string, password: string) => {
+  const handleLoginSuccess = (email: string, password: string, xUsername: string) => {
     setUserEmail(email);
     setIsLoggedIn(true);
   };

@@ -9,12 +9,12 @@ const databaseId = process.env.NOTION_DATABASE_ID || '';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, xUsername } = await request.json();
 
     // バリデーション
-    if (!email || !password) {
+    if (!email || !password || !xUsername) {
       return NextResponse.json(
-        { error: 'メールアドレスとパスワードは必須です' },
+        { error: 'すべての項目は必須です' },
         { status: 400 }
       );
     }
@@ -55,6 +55,15 @@ export async function POST(request: NextRequest) {
             {
               text: {
                 content: password,
+              },
+            },
+          ],
+        },
+        'Xユーザー名': {
+          rich_text: [
+            {
+              text: {
+                content: xUsername,
               },
             },
           ],

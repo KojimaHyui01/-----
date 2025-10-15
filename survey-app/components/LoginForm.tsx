@@ -3,12 +3,13 @@
 import { useState } from 'react';
 
 interface LoginFormProps {
-  onLoginSuccess: (email: string, password: string) => void;
+  onLoginSuccess: (email: string, password: string, xUsername: string) => void;
 }
 
 export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [xUsername, setXUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -27,6 +28,11 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
       return;
     }
 
+    if (!xUsername || xUsername.length < 1) {
+      setError('Xのユーザー名を入力してください');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -36,7 +42,7 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, xUsername }),
       });
 
       if (!res.ok) {
@@ -46,7 +52,7 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
       const data = await res.json();
 
       // ログイン成功時にコールバックを実行
-      onLoginSuccess(email, password);
+      onLoginSuccess(email, password, xUsername);
     } catch (error) {
       console.error('Login error:', error);
       setError('ログインに失敗しました。もう一度お試しください。');
@@ -96,6 +102,23 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               placeholder="パスワードを入力"
+              required
+            />
+          </div>
+
+          {/* Xユーザー名入力 */}
+          <div>
+            <label htmlFor="xUsername" className="block text-sm font-semibold text-gray-700 mb-2">
+              Xのユーザー名
+              <span className="text-red-500 ml-1">*</span>
+            </label>
+            <input
+              id="xUsername"
+              type="text"
+              value={xUsername}
+              onChange={(e) => setXUsername(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="@username"
               required
             />
           </div>
