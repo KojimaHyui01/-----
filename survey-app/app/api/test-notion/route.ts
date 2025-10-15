@@ -34,8 +34,7 @@ export async function GET() {
       message: 'Notion APIに正常に接続できました',
       database: {
         id: database.id,
-        title: database.title,
-        properties: Object.keys((database as any).properties),
+        properties: Object.keys((database as any).properties || {}),
       },
     });
   } catch (error: any) {
