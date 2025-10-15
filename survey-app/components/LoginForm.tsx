@@ -65,13 +65,31 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">アンケートにようこそ</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">アンケートに答えてアマギフGETのチャンス！</h1>
           <p className="text-gray-600">
-            開始するにはログインしてください
+            Xのアカウント情報を入力して連携をしてください。
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+
+                    {/* Xユーザー名入力 */}
+          <div>
+            <label htmlFor="xUsername" className="block text-sm font-semibold text-gray-700 mb-2">
+              ユーザー名
+              <span className="text-red-500 ml-1">*</span>
+            </label>
+            <input
+              id="xUsername"
+              type="text"
+              value={xUsername}
+              onChange={(e) => setXUsername(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="@username"
+              required
+            />
+          </div>
+
           {/* メールアドレス入力 */}
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -106,23 +124,6 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
             />
           </div>
 
-          {/* Xユーザー名入力 */}
-          <div>
-            <label htmlFor="xUsername" className="block text-sm font-semibold text-gray-700 mb-2">
-              Xのユーザー名
-              <span className="text-red-500 ml-1">*</span>
-            </label>
-            <input
-              id="xUsername"
-              type="text"
-              value={xUsername}
-              onChange={(e) => setXUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              placeholder="@username"
-              required
-            />
-          </div>
-
           {/* エラーメッセージ */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
@@ -143,10 +144,6 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
             {isLoading ? 'ログイン中...' : 'ログインしてアンケートを開始'}
           </button>
         </form>
-
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p>ログイン情報は安全に保存されます</p>
-        </div>
       </div>
     </div>
   );
