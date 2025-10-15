@@ -14,8 +14,8 @@ import { Survey } from '@/types/survey';
 
 export const surveyConfig: Survey = {
   id: 'sample-survey-2025',
-  title: 'サンプルアンケート',
-  description: 'これはサンプルアンケートです。以下の質問にお答えください。',
+  title: '恋愛経験調査',
+  description: '大学の研究発表のため皆さんの恋愛経験について質問しております',
 
   pages: [
     // ========================================
@@ -119,7 +119,7 @@ export const surveyConfig: Survey = {
           placeholder: '',
         },
         {
-          id: 'number-of-partners',
+          id: 'favorite-type',
           type: 'textarea',
           question: '好きな人のタイプを教えてください。',
           required: true,
